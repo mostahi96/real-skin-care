@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MOOYYAM Acne Face Cream | Order Now</title>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#fff7f0;color:#222;font-family:Arial,"Noto Sans Bengali",sans-serif}
@@ -24,19 +25,33 @@ select{font-weight:700;cursor:pointer}
 .total strong{font-size:28px;color:#e94b16}
 .delivery{text-align:right;color:#08783f;font-weight:800;margin-top:7px}
 button{width:100%;border:0;border-radius:13px;background:#e94b16;color:#fff;font-size:21px;font-weight:900;padding:16px;margin-top:18px;cursor:pointer}
+button:disabled{opacity:.6;cursor:not-allowed}
 .success{display:none;background:#eaf8ef;border:1px solid #91cda1;color:#176b35;padding:13px;border-radius:10px;margin-top:14px}
-@media(max-width:600px){.free{font-size:21px}.title{font-size:27px}.package-title .big{font-size:22px}}
+@media(max-width:600px){
+.free{font-size:21px}
+.title{font-size:27px}
+.package-title .big{font-size:22px}
+}
 </style>
 </head>
+
 <body>
-<div class="hero"><img src="mooyam-ad.png" alt="MOOYYAM Acne Face Cream"></div>
+
+<div class="hero">
+  <img src="mooyam-ad.png" alt="MOOYYAM Acne Face Cream">
+</div>
 
 <div class="container">
+
   <div class="free">🚚 সারা বাংলাদেশে ডেলিভারি সম্পূর্ণ ফ্রি</div>
 
   <div class="card">
+
     <h1 class="title">🛒 এখনই অর্ডার করুন</h1>
-    <p class="subtitle">আপনার পছন্দের প্যাকেজ নির্বাচন করে অর্ডার করুন</p>
+
+    <p class="subtitle">
+      আপনার পছন্দের প্যাকেজ নির্বাচন করে অর্ডার করুন
+    </p>
 
     <div class="package-title">
       <span class="big">🎁 আপনার জন্য রয়েছে ৩টি প্যাকেজ</span>
@@ -44,6 +59,7 @@ button{width:100%;border:0;border-radius:13px;background:#e94b16;color:#fff;font
     </div>
 
     <label for="package">প্যাকেজ নির্বাচন করুন</label>
+
     <select id="package">
       <option value="600">১ প্যাকেট — ৳৬০০</option>
       <option value="1100">২ প্যাকেট — ৳১১০০</option>
@@ -54,42 +70,196 @@ button{width:100%;border:0;border-radius:13px;background:#e94b16;color:#fff;font
       <span>মোট মূল্য</span>
       <strong id="total">৳৬০০</strong>
     </div>
-    <div class="delivery">✓ Delivery Charge: ৳০ (Free)</div>
+
+    <div class="delivery">
+      ✓ Delivery Charge: ৳০ (Free)
+    </div>
 
     <form id="orderForm">
+
       <label for="name">আপনার নাম *</label>
-      <input id="name" required placeholder="আপনার পূর্ণ নাম">
+      <input
+        id="name"
+        required
+        placeholder="আপনার পূর্ণ নাম"
+      >
 
       <label for="district">জেলা *</label>
-      <input id="district" required placeholder="জেলার নাম">
+      <input
+        id="district"
+        required
+        placeholder="জেলার নাম"
+      >
 
       <label for="thana">থানা / উপজেলা *</label>
-      <input id="thana" required placeholder="থানা বা উপজেলার নাম">
+      <input
+        id="thana"
+        required
+        placeholder="থানা বা উপজেলার নাম"
+      >
 
       <label for="phone">মোবাইল নম্বর *</label>
-      <input id="phone" type="tel" inputmode="numeric" required placeholder="01XXXXXXXXX">
+      <input
+        id="phone"
+        type="tel"
+        inputmode="numeric"
+        required
+        placeholder="01XXXXXXXXX"
+      >
 
       <label for="address">সম্পূর্ণ ঠিকানা *</label>
-      <textarea id="address" required placeholder="বাড়ি/রোড/গ্রাম/এলাকা লিখুন"></textarea>
+      <textarea
+        id="address"
+        required
+        placeholder="বাড়ি/রোড/গ্রাম/এলাকা লিখুন"
+      ></textarea>
 
-      <button type="submit">অর্ডার কনফার্ম করুন</button>
+      <button type="submit" id="submitBtn">
+        অর্ডার কনফার্ম করুন
+      </button>
+
       <div class="success" id="success"></div>
+
     </form>
+
   </div>
 </div>
 
-<script>
-const pkg=document.getElementById('package');
-const total=document.getElementById('total');
-const prices={600:'৳৬০০',1100:'৳১১০০',1600:'৳১৬০০'};
-pkg.addEventListener('change',()=>total.textContent=prices[pkg.value]);
 
-document.getElementById('orderForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  const s=document.getElementById('success');
-  s.style.display='block';
-  s.textContent='আপনার অর্ডারের তথ্য প্রস্তুত হয়েছে। অর্ডার গ্রহণের জন্য পরবর্তী ধাপে আপনার যোগাযোগ নম্বর যুক্ত করা হবে।';
+<script>
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbxwJ9__jf0V2plQKNqzlYeNlDQG01xJp4J1liTiZ7y2If-pVoRkcMwRCphoZamRLn14/exec";
+
+
+const pkg = document.getElementById("package");
+const total = document.getElementById("total");
+
+const prices = {
+  600: "৳৬০০",
+  1100: "৳১১০০",
+  1600: "৳১৬০০"
+};
+
+
+pkg.addEventListener("change", function(){
+  total.textContent = prices[pkg.value];
 });
+
+
+document.getElementById("orderForm").addEventListener("submit", function(e){
+
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const district = document.getElementById("district").value.trim();
+  const thana = document.getElementById("thana").value.trim();
+  const address = document.getElementById("address").value.trim();
+
+  const packageValue = pkg.value;
+
+  let packageName = "";
+
+  if(packageValue === "600"){
+    packageName = "১ প্যাকেট";
+  }
+  else if(packageValue === "1100"){
+    packageName = "২ প্যাকেট";
+  }
+  else if(packageValue === "1600"){
+    packageName = "৩ প্যাকেট";
+  }
+
+  const productPrice = "৳" + packageValue;
+  const delivery = "৳০";
+  const totalAmount = "৳" + packageValue;
+
+  const button = document.getElementById("submitBtn");
+  const success = document.getElementById("success");
+
+  button.disabled = true;
+  button.textContent = "অর্ডার পাঠানো হচ্ছে...";
+
+
+  /*
+    Google Apps Script-এ POST পাঠানোর জন্য
+    একটি hidden form ব্যবহার করা হচ্ছে।
+    এতে CORS সমস্যার সম্ভাবনা থাকে না।
+  */
+
+  const iframe = document.createElement("iframe");
+  iframe.name = "orderSubmitFrame";
+  iframe.style.display = "none";
+  document.body.appendChild(iframe);
+
+
+  const form = document.createElement("form");
+
+  form.method = "POST";
+  form.action = SCRIPT_URL;
+  form.target = "orderSubmitFrame";
+  form.style.display = "none";
+
+
+  const fields = {
+    name: name,
+    phone: phone,
+    district: district,
+    upazila: thana,
+    address: address,
+    package: packageName,
+    productPrice: productPrice,
+    delivery: delivery,
+    total: totalAmount
+  };
+
+
+  Object.keys(fields).forEach(function(key){
+
+    const input = document.createElement("input");
+
+    input.type = "hidden";
+    input.name = key;
+    input.value = fields[key];
+
+    form.appendChild(input);
+
+  });
+
+
+  document.body.appendChild(form);
+
+  form.submit();
+
+
+  /*
+    অর্ডার পাঠানোর পর সফল মেসেজ দেখানো হবে।
+  */
+
+  setTimeout(function(){
+
+    success.style.display = "block";
+
+    success.textContent =
+      "✅ আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে। আমাদের প্রতিনিধি শীঘ্রই আপনার সাথে যোগাযোগ করবে।";
+
+    button.disabled = false;
+    button.textContent = "অর্ডার কনফার্ম করুন";
+
+    document.getElementById("orderForm").reset();
+
+    pkg.value = "600";
+    total.textContent = "৳৬০০";
+
+    form.remove();
+    iframe.remove();
+
+  }, 1500);
+
+});
+
 </script>
+
 </body>
 </html>
